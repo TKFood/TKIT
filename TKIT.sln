@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TKIT", "TKIT\TKIT.csproj", "{60C8A1C1-FDDD-44E1-A015-E5852CFC5EDB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TKITDLL", "TKITDLL\TKITDLL.csproj", "{4066E1A7-CF79-4970-9CF3-179BCDE6E84C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{60C8A1C1-FDDD-44E1-A015-E5852CFC5EDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60C8A1C1-FDDD-44E1-A015-E5852CFC5EDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60C8A1C1-FDDD-44E1-A015-E5852CFC5EDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4066E1A7-CF79-4970-9CF3-179BCDE6E84C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4066E1A7-CF79-4970-9CF3-179BCDE6E84C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4066E1A7-CF79-4970-9CF3-179BCDE6E84C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4066E1A7-CF79-4970-9CF3-179BCDE6E84C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

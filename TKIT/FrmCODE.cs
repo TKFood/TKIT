@@ -10,6 +10,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TKITDLL;
 
 namespace TKIT
 {
@@ -80,6 +81,31 @@ namespace TKIT
             }
         }
 
+        public void TestSqlConnectionStringFromConfigAndPasswordEncrpted2()
+        {
+            Class1 TKID = new Class1();//用new 建立類別實體
+            //連接字串產生器
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbTKITTEST"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            //簡單連線資料庫查詢SQL Server版本資料
+            using (SqlConnection conn = new SqlConnection(sqlsb.ConnectionString))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("select @@version", conn))
+                {
+                    SqlDataAdapter adapter = new SqlDataAdapter();
+                    adapter.SelectCommand = cmd;
+                    DataTable table = new DataTable();
+                    adapter.Fill(table);
+                    Console.WriteLine($"{table.Rows[0][0]}");
+                }
+            }
+        }
+
         public void SETTEXTBOX()
         {
             textBox1.Text = null;
@@ -110,6 +136,11 @@ namespace TKIT
         {
             TestSqlConnectionStringFromConfigAndPasswordEncrpted();
         }
+        private void button5_Click(object sender, EventArgs e)
+        {
+            TestSqlConnectionStringFromConfigAndPasswordEncrpted2();
+        }
+
         #endregion
 
 
