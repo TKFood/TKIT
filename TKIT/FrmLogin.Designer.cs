@@ -50,6 +50,7 @@
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
@@ -63,17 +64,17 @@
             // txt_UserName
             // 
             this.txt_UserName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_UserName.Location = new System.Drawing.Point(97, 86);
+            this.txt_UserName.Location = new System.Drawing.Point(97, 84);
             this.txt_UserName.Name = "txt_UserName";
-            this.txt_UserName.Size = new System.Drawing.Size(88, 22);
+            this.txt_UserName.Size = new System.Drawing.Size(88, 27);
             this.txt_UserName.TabIndex = 0;
             // 
             // txt_Password
             // 
             this.txt_Password.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_Password.Location = new System.Drawing.Point(97, 151);
+            this.txt_Password.Location = new System.Drawing.Point(97, 149);
             this.txt_Password.Name = "txt_Password";
-            this.txt_Password.Size = new System.Drawing.Size(88, 22);
+            this.txt_Password.Size = new System.Drawing.Size(88, 27);
             this.txt_Password.TabIndex = 1;
             this.txt_Password.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_Password_KeyDown);
             // 
@@ -92,9 +93,9 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 156);
+            this.label2.Location = new System.Drawing.Point(3, 154);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(88, 12);
+            this.label2.Size = new System.Drawing.Size(88, 16);
             this.label2.TabIndex = 4;
             this.label2.Text = "密碼";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -103,9 +104,9 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 91);
+            this.label1.Location = new System.Drawing.Point(3, 89);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(88, 12);
+            this.label1.Size = new System.Drawing.Size(88, 16);
             this.label1.TabIndex = 3;
             this.label1.Text = "帳號";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
