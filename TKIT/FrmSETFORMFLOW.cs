@@ -568,6 +568,31 @@ namespace TKIT
             }
         }
 
+        private void dataGridView2_SelectionChanged(object sender, EventArgs e)
+        {
+            textBoxA.Text = null;
+
+            if (dataGridView2.CurrentRow != null)
+            {
+                int rowindex = dataGridView2.CurrentRow.Index;
+
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView2.Rows[rowindex];
+
+                    textBoxA.Text = row.Cells["ID"].Value.ToString();
+
+
+                }
+                else
+                {
+                    textBoxA.Text = null;
+
+
+                }
+            }
+        }
+
         public void SEARCH3(string UOF_FORM_NAME)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
@@ -658,30 +683,31 @@ namespace TKIT
             }
         }
 
-        private void dataGridView2_SelectionChanged(object sender, EventArgs e)
+        private void dataGridView3_SelectionChanged(object sender, EventArgs e)
         {
-            textBox5.Text = null;
+            textBoxB.Text = null;
 
-            if (dataGridView2.CurrentRow != null)
+            if (dataGridView3.CurrentRow != null)
             {
-                int rowindex = dataGridView2.CurrentRow.Index;
+                int rowindex = dataGridView3.CurrentRow.Index;
 
                 if (rowindex >= 0)
                 {
-                    DataGridViewRow row = dataGridView2.Rows[rowindex];
+                    DataGridViewRow row = dataGridView3.Rows[rowindex];
 
-                    textBox5.Text = row.Cells["ID"].Value.ToString();
+                    textBoxB.Text = row.Cells["ID"].Value.ToString();
 
 
                 }
                 else
                 {
-                    textBox5.Text = null;
-                  
+                    textBoxB.Text = null;
+
 
                 }
             }
         }
+      
 
         public void ADD_UOF_Z_UOF_FORM_DEFALUT_SINGERS(string UOF_FORM_NAME,string RANKS,string TITLE_NAME)
         {
@@ -822,12 +848,27 @@ namespace TKIT
             {
                 DELETE_UOF_Z_UOF_FORM_DEFALUT_SINGERS(textBox3.Text);
 
-                SEARCH2(textBox5.Text);
+                SEARCH2(textBoxA.Text);
             }
             else if (dialogResult == DialogResult.No)
             {
                 //do something else
             }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+
         }
 
 
@@ -836,6 +877,6 @@ namespace TKIT
 
         #endregion
 
-      
+       
     }
 }
