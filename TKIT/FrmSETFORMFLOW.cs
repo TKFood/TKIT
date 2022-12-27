@@ -52,10 +52,50 @@ namespace TKIT
         public FrmSETFORMFLOW()
         {
             InitializeComponent();
+
+            comboBox1load();
+            textBox4.Text = "1";
         }
 
 
         #region FUNCTION
+        public void comboBox1load()
+        {
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbUOF"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@" SELECT  [RANK] ,[TITLE_NAME] FROM [UOF].[dbo].[TB_EB_JOB_TITLE] ORDER BY [RANK] ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("RANK", typeof(string));
+            dt.Columns.Add("TITLE_NAME", typeof(string));
+            da.Fill(dt);
+            comboBox1.DataSource = dt.DefaultView;
+            comboBox1.ValueMember = "RANK";
+            comboBox1.DisplayMember = "TITLE_NAME";
+            sqlConn.Close();
+
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(!string.IsNullOrEmpty(comboBox1.SelectedValue.ToString()))
+            {
+                textBox4.Text = comboBox1.SelectedValue.ToString();
+            }
+        }
 
         public void SEARCH(string FORM_NAME)
         {
@@ -317,6 +357,113 @@ namespace TKIT
             }
         }
 
+        public void ADD_UOF_Z_UOF_FORM_DEFALUT_SINGERS(string UOF_FORM_NAME,string RANKS,string TITLE_NAME)
+        {
+            try
+            {
+                // 20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                using (SqlConnection conn = sqlConn)
+                {
+                    if (!string.IsNullOrEmpty(UOF_FORM_NAME))
+                    {
+                        StringBuilder SBSQL = new StringBuilder();
+                        SBSQL.AppendFormat(@"   
+                                            INSERT INTO  [UOF].[dbo].[Z_UOF_FORM_DEFALUT_SINGERS]
+        (
+                                            [UOF_FORM_NAME]
+                                            ,[RANKS]
+                                            ,[TITLE_NAME]
+                                            )
+                                            VALUES
+                                            (
+                                            @UOF_FORM_NAME
+                                            ,@RANKS
+                                            ,@TITLE_NAME
+                                            )
+                                       
+                                            ");
+
+                        string sql = SBSQL.ToString();
+
+                        using (SqlCommand cmd = new SqlCommand(sql, conn))
+                        {
+
+                            cmd.Parameters.AddWithValue("@UOF_FORM_NAME", UOF_FORM_NAME);
+                            cmd.Parameters.AddWithValue("@RANKS", RANKS);
+                            cmd.Parameters.AddWithValue("@TITLE_NAME", TITLE_NAME);
+
+
+                            conn.Open();
+                            cmd.ExecuteNonQuery();
+                            conn.Close();
+                        }
+                    }
+
+                }
+            }
+            catch
+            {
+                MessageBox.Show("失敗");
+            }
+        }
+        public void DELETE_UOF_Z_UOF_FORM_DEFALUT_SINGERS(string UOF_FORM_NAME)
+        {
+            try
+            {
+                // 20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                using (SqlConnection conn = sqlConn)
+                {
+                    if (!string.IsNullOrEmpty(UOF_FORM_NAME))
+                    {
+                        StringBuilder SBSQL = new StringBuilder();
+                        SBSQL.AppendFormat(@"   
+                                            DELETE  [UOF].[dbo].[Z_UOF_FORM_DEFALUT_SINGERS]
+                                            WHERE [UOF_FORM_NAME]=@UOF_FORM_NAME
+                                       
+                                             ");
+
+                        string sql = SBSQL.ToString();
+
+                        using (SqlCommand cmd = new SqlCommand(sql, conn))
+                        {
+
+                            cmd.Parameters.AddWithValue("@UOF_FORM_NAME", UOF_FORM_NAME);
+
+
+
+
+                            conn.Open();
+                            cmd.ExecuteNonQuery();
+                            conn.Close();
+                        }
+                    }
+
+                }
+            }
+            catch
+            {
+                MessageBox.Show("失敗");
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -334,8 +481,18 @@ namespace TKIT
         {
             SEARCH3(textBox3.Text);
         }
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+        }
+
         #endregion
 
-
+       
     }
 }
