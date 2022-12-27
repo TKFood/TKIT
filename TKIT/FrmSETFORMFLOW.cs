@@ -799,8 +799,253 @@ namespace TKIT
 
                             cmd.Parameters.AddWithValue("@UOF_FORM_NAME", UOF_FORM_NAME);
 
+                            conn.Open();
+                            cmd.ExecuteNonQuery();
+                            conn.Close();
+                        }
+                    }
 
+                }
+            }
+            catch
+            {
+                MessageBox.Show("失敗");
+            }
+        }
 
+        public void ADD_UOF_Z_UOF_FROM_CONDITIONS(
+                                                string UOF_FORM_NAME,
+                                                string APPLY_GROUP_ID,
+                                                string APPLY_GROUP_NAME,
+                                                string APPLY_RANKS,
+                                                string APPLY_TITLE_NAME,
+                                                string APPLY_RANKS_OPERATOR,
+                                                string APPLY_FILEDS1,
+                                                string APPLY_FILEDS_OPERATOR1,
+                                                string APPLY_FILEDS_VALUES1,
+                                                string APPLY_FILEDS2,
+                                                string APPLY_FILEDS_OPERATOR2,
+                                                string APPLY_FILEDS_VALUES2,
+                                                string APPLY_FILEDS3,
+                                                string APPLY_FILEDS_OPERATOR3,
+                                                string APPLY_FILEDS_VALUES3,
+                                                string APPLY_FILEDS4,
+                                                string APPLY_FILEDS_OPERATOR4,
+                                                string APPLY_FILEDS_VALUES4,
+                                                string APPLY_FILEDS5,
+                                                string APPLY_FILEDS_OPERATOR5,
+                                                string APPLY_FILEDS_VALUES5,
+                                                string SET_FLOW_RANKS,
+                                                string SET_FLOW_TITLE_NAME,
+                                                string PRIORITYS,
+                                                string ISUSED,
+                                                string COMMENTS
+                                                )
+        {
+
+            try
+            {
+                // 20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbUOF"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                using (SqlConnection conn = sqlConn)
+                {
+                    if (!string.IsNullOrEmpty(UOF_FORM_NAME))
+                    {
+                        StringBuilder SBSQL = new StringBuilder();
+                        SBSQL.AppendFormat(@"   
+                                            INSERT INTO  [UOF].[dbo].[Z_UOF_FROM_CONDITIONS]
+                                            (
+                                            [UOF_FORM_NAME]
+                                            ,[APPLY_GROUP_ID]
+                                            ,[APPLY_GROUP_NAME]
+                                            ,[APPLY_RANKS]
+                                            ,[APPLY_TITLE_NAME]
+                                            ,[APPLY_RANKS_OPERATOR]
+                                            ,[APPLY_FILEDS1]
+                                            ,[APPLY_FILEDS_OPERATOR1]
+                                            ,[APPLY_FILEDS_VALUES1]
+                                            ,[APPLY_FILEDS2]
+                                            ,[APPLY_FILEDS_OPERATOR2]
+                                            ,[APPLY_FILEDS_VALUES2]
+                                            ,[APPLY_FILEDS3]
+                                            ,[APPLY_FILEDS_OPERATOR3]
+                                            ,[APPLY_FILEDS_VALUES3]
+                                            ,[APPLY_FILEDS4]
+                                            ,[APPLY_FILEDS_OPERATOR4]
+                                            ,[APPLY_FILEDS_VALUES4]
+                                            ,[APPLY_FILEDS5]
+                                            ,[APPLY_FILEDS_OPERATOR5]
+                                            ,[APPLY_FILEDS_VALUES5]
+                                            ,[SET_FLOW_RANKS]
+                                            ,[SET_FLOW_TITLE_NAME]
+                                            ,[PRIORITYS]
+                                            ,[ISUSED]
+                                            )
+                                            VALUES
+                                            (
+                                            @UOF_FORM_NAME
+                                            ,@APPLY_GROUP_ID
+                                            ,@APPLY_GROUP_NAME
+                                            ,@APPLY_RANKS
+                                            ,@APPLY_TITLE_NAME
+                                            ,@APPLY_RANKS_OPERATOR
+                                            ,@APPLY_FILEDS1
+                                            ,@APPLY_FILEDS_OPERATOR1
+                                            ,@APPLY_FILEDS_VALUES1
+                                            ,@APPLY_FILEDS2
+                                            ,@APPLY_FILEDS_OPERATOR2
+                                            ,@APPLY_FILEDS_VALUES2
+                                            ,@APPLY_FILEDS3
+                                            ,@APPLY_FILEDS_OPERATOR3
+                                            ,@APPLY_FILEDS_VALUES3
+                                            ,@APPLY_FILEDS4
+                                            ,@APPLY_FILEDS_OPERATOR4
+                                            ,@APPLY_FILEDS_VALUES4
+                                            ,@APPLY_FILEDS5
+                                            ,@APPLY_FILEDS_OPERATOR5
+                                            ,@APPLY_FILEDS_VALUES5
+                                            ,@SET_FLOW_RANKS
+                                            ,@SET_FLOW_TITLE_NAME
+                                            ,@PRIORITYS
+                                            ,@ISUSED
+                                            )
+                                       
+                                             ");
+
+                        string sql = SBSQL.ToString();
+
+                        using (SqlCommand cmd = new SqlCommand(sql, conn))
+                        {
+
+                            cmd.Parameters.AddWithValue("@APPLY_GROUP_ID", APPLY_GROUP_ID);
+                            cmd.Parameters.AddWithValue("@UOF_FORM_NAME", UOF_FORM_NAME);
+                            cmd.Parameters.AddWithValue("@APPLY_GROUP_NAME", APPLY_GROUP_NAME);
+                            cmd.Parameters.AddWithValue("@APPLY_RANKS", APPLY_RANKS);
+                            cmd.Parameters.AddWithValue("@APPLY_TITLE_NAME", APPLY_TITLE_NAME);
+                            cmd.Parameters.AddWithValue("@APPLY_RANKS_OPERATOR", APPLY_RANKS_OPERATOR);
+                            cmd.Parameters.AddWithValue("@APPLY_FILEDS1", APPLY_FILEDS1);
+                            cmd.Parameters.AddWithValue("@APPLY_FILEDS_OPERATOR1", APPLY_FILEDS_OPERATOR1);
+                            cmd.Parameters.AddWithValue("@APPLY_FILEDS_VALUES1", APPLY_FILEDS_VALUES1);
+                            cmd.Parameters.AddWithValue("@APPLY_FILEDS2", APPLY_FILEDS2);
+                            cmd.Parameters.AddWithValue("@APPLY_FILEDS_OPERATOR2", APPLY_FILEDS_OPERATOR2);
+                            cmd.Parameters.AddWithValue("@APPLY_FILEDS_VALUES2", APPLY_FILEDS_VALUES2);
+                            cmd.Parameters.AddWithValue("@APPLY_FILEDS3", APPLY_FILEDS3);
+                            cmd.Parameters.AddWithValue("@APPLY_FILEDS_OPERATOR3", APPLY_FILEDS_OPERATOR3);
+                            cmd.Parameters.AddWithValue("@APPLY_FILEDS_VALUES3", APPLY_FILEDS_VALUES3);
+                            cmd.Parameters.AddWithValue("@APPLY_FILEDS4", APPLY_FILEDS4);
+                            cmd.Parameters.AddWithValue("@APPLY_FILEDS_OPERATOR4", APPLY_FILEDS_OPERATOR4);
+                            cmd.Parameters.AddWithValue("@APPLY_FILEDS_VALUES4", APPLY_FILEDS_VALUES4);
+                            cmd.Parameters.AddWithValue("@APPLY_FILEDS5", APPLY_FILEDS5);
+                            cmd.Parameters.AddWithValue("@APPLY_FILEDS_OPERATOR5", APPLY_FILEDS_OPERATOR5);
+                            cmd.Parameters.AddWithValue("@APPLY_FILEDS_VALUES5", APPLY_FILEDS_VALUES5);
+                            cmd.Parameters.AddWithValue("@SET_FLOW_RANKS", SET_FLOW_RANKS);
+                            cmd.Parameters.AddWithValue("@SET_FLOW_TITLE_NAME", SET_FLOW_TITLE_NAME);
+                            cmd.Parameters.AddWithValue("@PRIORITYS", PRIORITYS);
+                            cmd.Parameters.AddWithValue("@ISUSED", ISUSED);
+
+                            conn.Open();
+                            cmd.ExecuteNonQuery();
+                            conn.Close();
+                        }
+                    }
+
+                }
+            }
+            catch
+            {
+                MessageBox.Show("失敗");
+            }
+
+        }
+
+        public void UPDATE_Z_UOF_FROM_CONDITIONS(string ID,string ISUSED)
+        {
+
+            try
+            {
+                // 20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbUOF"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                using (SqlConnection conn = sqlConn)
+                {
+                    if (!string.IsNullOrEmpty(ID))
+                    {
+                        StringBuilder SBSQL = new StringBuilder();
+                        SBSQL.AppendFormat(@"   
+                                            UPDATE [UOF].[dbo].[Z_UOF_FROM_CONDITIONS]
+                                            SET [ISUSED]=@ISUSED
+                                            WHERE [ID]=@ID
+                                       
+                                             ");
+
+                        string sql = SBSQL.ToString();
+
+                        using (SqlCommand cmd = new SqlCommand(sql, conn))
+                        {
+
+                            cmd.Parameters.AddWithValue("@ID", ID);
+                            cmd.Parameters.AddWithValue("@ISUSED", ISUSED);
+
+                            conn.Open();
+                            cmd.ExecuteNonQuery();
+                            conn.Close();
+                        }
+                    }
+
+                }
+            }
+            catch
+            {
+                MessageBox.Show("失敗");
+            }
+        }
+
+        public void DEL_Z_UOF_FROM_CONDITIONS(string ID)
+        {
+            try
+            {
+                // 20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbUOF"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                using (SqlConnection conn = sqlConn)
+                {
+                    if (!string.IsNullOrEmpty(ID))
+                    {
+                        StringBuilder SBSQL = new StringBuilder();
+                        SBSQL.AppendFormat(@"   
+
+                                            DELETE [UOF].[dbo].[Z_UOF_FROM_CONDITIONS]
+                                            WHERE [ID]=@ID
+                                             ");
+
+                        string sql = SBSQL.ToString();
+
+                        using (SqlCommand cmd = new SqlCommand(sql, conn))
+                        {
+
+                            cmd.Parameters.AddWithValue("@ID", ID);
 
                             conn.Open();
                             cmd.ExecuteNonQuery();
@@ -858,17 +1103,93 @@ namespace TKIT
 
         private void button6_Click(object sender, EventArgs e)
         {
+            string UOF_FORM_NAME = textBox3.Text;
+            string APPLY_GROUP_ID = textBox6.Text;
+            string APPLY_GROUP_NAME = comboBox2.Text.ToString();
+            string APPLY_RANKS = textBox7.Text;
+            string APPLY_TITLE_NAME = comboBox3.Text.ToString();
+            string APPLY_RANKS_OPERATOR = comboBox4.Text.ToString();
+            string APPLY_FILEDS1 = textBox8.Text;
+            string APPLY_FILEDS_OPERATOR1 = comboBox5.Text.ToString();
+            string APPLY_FILEDS_VALUES1 = textBox9.Text;
+            string APPLY_FILEDS2 = textBox10.Text;
+            string APPLY_FILEDS_OPERATOR2 = comboBox6.Text.ToString();
+            string APPLY_FILEDS_VALUES2 = textBox11.Text;
+            string APPLY_FILEDS3 = textBox12.Text;
+            string APPLY_FILEDS_OPERATOR3 = comboBox7.Text.ToString();
+            string APPLY_FILEDS_VALUES3 = textBox13.Text;
+            string APPLY_FILEDS4 = textBox14.Text;
+            string APPLY_FILEDS_OPERATOR4 = comboBox8.Text.ToString();
+            string APPLY_FILEDS_VALUES4 = textBox15.Text;
+            string APPLY_FILEDS5 = textBox16.Text;
+            string APPLY_FILEDS_OPERATOR5 = comboBox9.Text.ToString();
+            string APPLY_FILEDS_VALUES5 = textBox17.Text;
+            string SET_FLOW_RANKS = textBox18.Text;
+            string SET_FLOW_TITLE_NAME = comboBox10.Text.ToString();
+            string PRIORITYS = textBox19.Text;
+            string ISUSED = "Y";
+            string COMMENTS = "";
+
+            ADD_UOF_Z_UOF_FROM_CONDITIONS(
+                                                UOF_FORM_NAME,
+                                                APPLY_GROUP_ID,
+                                                APPLY_GROUP_NAME,
+                                                APPLY_RANKS,
+                                                APPLY_TITLE_NAME,
+                                                APPLY_RANKS_OPERATOR,
+                                                APPLY_FILEDS1,
+                                                APPLY_FILEDS_OPERATOR1,
+                                                APPLY_FILEDS_VALUES1,
+                                                APPLY_FILEDS2,
+                                                APPLY_FILEDS_OPERATOR2,
+                                                APPLY_FILEDS_VALUES2,
+                                                APPLY_FILEDS3,
+                                                APPLY_FILEDS_OPERATOR3,
+                                                APPLY_FILEDS_VALUES3,
+                                                APPLY_FILEDS4,
+                                                APPLY_FILEDS_OPERATOR4,
+                                                APPLY_FILEDS_VALUES4,
+                                                APPLY_FILEDS5,
+                                                APPLY_FILEDS_OPERATOR5,
+                                                APPLY_FILEDS_VALUES5,
+                                                SET_FLOW_RANKS,
+                                                SET_FLOW_TITLE_NAME,
+                                                PRIORITYS,
+                                                ISUSED,
+                                                COMMENTS
+                                                );
+
+            SEARCH3(textBox3.Text);
+
 
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
-
+            UPDATE_Z_UOF_FROM_CONDITIONS(textBoxB.Text, "N");
+            SEARCH3(textBox3.Text);
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
+            DialogResult dialogResult = MessageBox.Show("要刪除了?", "要刪除了?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                DEL_Z_UOF_FROM_CONDITIONS(textBoxB.Text);
 
+                SEARCH3(textBox3.Text);
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
+
+            
+        }
+        private void button9_Click(object sender, EventArgs e)
+        {
+            UPDATE_Z_UOF_FROM_CONDITIONS(textBoxB.Text,"Y");
+            SEARCH3(textBox3.Text);
         }
 
 
@@ -877,6 +1198,6 @@ namespace TKIT
 
         #endregion
 
-       
+
     }
 }

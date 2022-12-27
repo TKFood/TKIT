@@ -95,6 +95,7 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -425,6 +426,7 @@
             this.tableLayoutPanel3.Controls.Add(this.button6, 1, 9);
             this.tableLayoutPanel3.Controls.Add(this.button8, 4, 9);
             this.tableLayoutPanel3.Controls.Add(this.button7, 3, 9);
+            this.tableLayoutPanel3.Controls.Add(this.button9, 2, 9);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -910,6 +912,17 @@
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
+            // button9
+            // 
+            this.button9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button9.Location = new System.Drawing.Point(249, 363);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(108, 34);
+            this.button9.TabIndex = 44;
+            this.button9.Text = "啟用";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
             // FrmSETFORMFLOW
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -1024,5 +1037,6 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button9;
     }
 }
