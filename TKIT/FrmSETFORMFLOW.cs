@@ -199,7 +199,7 @@ namespace TKIT
             }
         }
 
-        public void SEARCH2(string FORM_NAME)
+        public void SEARCH2(string UOF_FORM_NAME)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
             SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
@@ -231,7 +231,7 @@ namespace TKIT
                                     ,[ID]
                                     FROM [UOF].[dbo].[Z_UOF_FORM_DEFALUT_SINGERS]
                                     WHERE [UOF_FORM_NAME]='{0}'
-                                    ", FORM_NAME);
+                                    ", UOF_FORM_NAME);
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -267,7 +267,7 @@ namespace TKIT
             }
         }
 
-        public void SEARCH3(string FORM_NAME)
+        public void SEARCH3(string UOF_FORM_NAME)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
             SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
@@ -323,7 +323,7 @@ namespace TKIT
                                     FROM [UOF].[dbo].[Z_UOF_FROM_CONDITIONS]
                                     WHERE [UOF_FORM_NAME]='{0}'
                                     ORDER BY [PRIORITYS]
-                                    ", FORM_NAME);
+                                    ", UOF_FORM_NAME);
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -357,13 +357,38 @@ namespace TKIT
             }
         }
 
+        private void dataGridView2_SelectionChanged(object sender, EventArgs e)
+        {
+            textBox5.Text = null;
+
+            if (dataGridView2.CurrentRow != null)
+            {
+                int rowindex = dataGridView2.CurrentRow.Index;
+
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView2.Rows[rowindex];
+
+                    textBox5.Text = row.Cells["ID"].Value.ToString();
+
+
+                }
+                else
+                {
+                    textBox5.Text = null;
+                  
+
+                }
+            }
+        }
+
         public void ADD_UOF_Z_UOF_FORM_DEFALUT_SINGERS(string UOF_FORM_NAME,string RANKS,string TITLE_NAME)
         {
             try
             {
                 // 20210902密
                 Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbUOF"].ConnectionString);
 
                 //資料庫使用者密碼解密
                 sqlsb.Password = TKID.Decryption(sqlsb.Password);
@@ -378,7 +403,7 @@ namespace TKIT
                         StringBuilder SBSQL = new StringBuilder();
                         SBSQL.AppendFormat(@"   
                                             INSERT INTO  [UOF].[dbo].[Z_UOF_FORM_DEFALUT_SINGERS]
-        (
+                                            (
                                             [UOF_FORM_NAME]
                                             ,[RANKS]
                                             ,[TITLE_NAME]
@@ -421,7 +446,7 @@ namespace TKIT
             {
                 // 20210902密
                 Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbUOF"].ConnectionString);
 
                 //資料庫使用者密碼解密
                 sqlsb.Password = TKID.Decryption(sqlsb.Password);
@@ -483,13 +508,27 @@ namespace TKIT
         }
         private void button4_Click(object sender, EventArgs e)
         {
+            ADD_UOF_Z_UOF_FORM_DEFALUT_SINGERS(textBox2.Text, textBox4.Text,comboBox1.Text.ToString());
 
+            SEARCH2(textBox2.Text);
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
+           
+            DialogResult dialogResult = MessageBox.Show("要刪除了?", "要刪除了?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                DELETE_UOF_Z_UOF_FORM_DEFALUT_SINGERS(textBox3.Text);
 
+                SEARCH2(textBox5.Text);
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
         }
+
 
         #endregion
 
