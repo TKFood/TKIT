@@ -59,8 +59,16 @@ namespace TKIT
             textBox6.Text = "";
             comboBox3load();
             textBox7.Text = "1";
+
             comboBox4load();
             comboBox5load();
+            comboBox6load();
+            comboBox7load();
+            comboBox8load();
+            comboBox9load();
+
+            comboBox10load();
+            textBox18.Text = "1";
         }
 
 
@@ -212,6 +220,152 @@ namespace TKIT
 
 
         }
+
+        public void comboBox6load()
+        {
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@" SELECT [ID] ,[KIND],[PARAID],[PARANAME] FROM [TKIT].[dbo].[TBPARA] WHERE [KIND]='欄位比較' ORDER BY [ID] ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("PARAID", typeof(string));
+            da.Fill(dt);
+            comboBox6.DataSource = dt.DefaultView;
+            comboBox6.ValueMember = "PARAID";
+            comboBox6.DisplayMember = "PARAID";
+            sqlConn.Close();
+
+
+        }
+
+        public void comboBox7load()
+        {
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@" SELECT [ID] ,[KIND],[PARAID],[PARANAME] FROM [TKIT].[dbo].[TBPARA] WHERE [KIND]='欄位比較' ORDER BY [ID] ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("PARAID", typeof(string));
+            da.Fill(dt);
+            comboBox7.DataSource = dt.DefaultView;
+            comboBox7.ValueMember = "PARAID";
+            comboBox7.DisplayMember = "PARAID";
+            sqlConn.Close();
+
+
+        }
+
+        public void comboBox8load()
+        {
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@" SELECT [ID] ,[KIND],[PARAID],[PARANAME] FROM [TKIT].[dbo].[TBPARA] WHERE [KIND]='欄位比較' ORDER BY [ID] ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("PARAID", typeof(string));
+            da.Fill(dt);
+            comboBox8.DataSource = dt.DefaultView;
+            comboBox8.ValueMember = "PARAID";
+            comboBox8.DisplayMember = "PARAID";
+            sqlConn.Close();
+
+
+        }
+
+        public void comboBox9load()
+        {
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@" SELECT [ID] ,[KIND],[PARAID],[PARANAME] FROM [TKIT].[dbo].[TBPARA] WHERE [KIND]='欄位比較' ORDER BY [ID] ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("PARAID", typeof(string));
+            da.Fill(dt);
+            comboBox9.DataSource = dt.DefaultView;
+            comboBox9.ValueMember = "PARAID";
+            comboBox9.DisplayMember = "PARAID";
+            sqlConn.Close();
+
+
+        }
+
+        public void comboBox10load()
+        {
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbUOF"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@" SELECT  [RANK] ,[TITLE_NAME] FROM [UOF].[dbo].[TB_EB_JOB_TITLE] ORDER BY [RANK] ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("RANK", typeof(string));
+            dt.Columns.Add("TITLE_NAME", typeof(string));
+            da.Fill(dt);
+            comboBox10.DataSource = dt.DefaultView;
+            comboBox10.ValueMember = "RANK";
+            comboBox10.DisplayMember = "TITLE_NAME";
+            sqlConn.Close();
+
+
+        }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(!string.IsNullOrEmpty(comboBox1.SelectedValue.ToString()))
@@ -225,6 +379,14 @@ namespace TKIT
             if (!string.IsNullOrEmpty(comboBox2.SelectedValue.ToString()))
             {
                 textBox6.Text = comboBox2.SelectedValue.ToString();
+            }
+        }
+
+        private void comboBox10_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(comboBox10.SelectedValue.ToString()))
+            {
+                textBox18.Text = comboBox10.SelectedValue.ToString();
             }
         }
 
@@ -671,8 +833,9 @@ namespace TKIT
 
 
 
+
         #endregion
 
-        
+      
     }
 }
