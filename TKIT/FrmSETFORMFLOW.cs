@@ -58,7 +58,7 @@ namespace TKIT
             comboBox2load();
             textBox6.Text = "";
             comboBox3load();
-            textBox7.Text = "1";
+            textBox7.Text = "";
 
             comboBox4load();
             comboBox5load();
@@ -117,7 +117,7 @@ namespace TKIT
             sqlConn = new SqlConnection(sqlsb.ConnectionString);
 
             StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@" SELECT  [GROUP_ID],[GROUP_NAME],[PARENT_GROUP_ID],[GROUP_CODE],[ACTIVE] FROM [UOF].[dbo].[TB_EB_GROUP] WHERE ISNULL([GROUP_CODE],'')<>''AND [ACTIVE]=1 ORDER BY [GROUP_CODE] ");
+            Sequel.AppendFormat(@" SELECT '' AS [GROUP_ID], '' AS [GROUP_NAME], '' AS [PARENT_GROUP_ID], '' AS [GROUP_CODE], '1' AS [ACTIVE] UNION ALL SELECT  [GROUP_ID],[GROUP_NAME],[PARENT_GROUP_ID],[GROUP_CODE],[ACTIVE] FROM [UOF].[dbo].[TB_EB_GROUP] WHERE ISNULL([GROUP_CODE],'')<>''AND [ACTIVE]=1 ORDER BY [GROUP_CODE] ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
@@ -147,7 +147,7 @@ namespace TKIT
             sqlConn = new SqlConnection(sqlsb.ConnectionString);
 
             StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@" SELECT  [RANK] ,[TITLE_NAME] FROM [UOF].[dbo].[TB_EB_JOB_TITLE] ORDER BY [RANK] ");
+            Sequel.AppendFormat(@" SELECT NULL AS [RANK] ,NULL AS [TITLE_NAME] UNION ALL SELECT  [RANK] ,[TITLE_NAME] FROM [UOF].[dbo].[TB_EB_JOB_TITLE] ORDER BY [RANK] ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
