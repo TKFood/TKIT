@@ -71,6 +71,10 @@
             this.label13 = new System.Windows.Forms.Label();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.textBox9 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -376,6 +380,10 @@
             this.tableLayoutPanel3.Controls.Add(this.label13, 0, 8);
             this.tableLayoutPanel3.Controls.Add(this.comboBox3, 1, 2);
             this.tableLayoutPanel3.Controls.Add(this.textBox7, 2, 2);
+            this.tableLayoutPanel3.Controls.Add(this.comboBox4, 3, 2);
+            this.tableLayoutPanel3.Controls.Add(this.textBox8, 1, 3);
+            this.tableLayoutPanel3.Controls.Add(this.comboBox5, 2, 3);
+            this.tableLayoutPanel3.Controls.Add(this.textBox9, 3, 3);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -555,7 +563,7 @@
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(114, 16);
             this.label8.TabIndex = 10;
-            this.label8.Text = "申請欄位";
+            this.label8.Text = "申請欄位1";
             // 
             // comboBox2
             // 
@@ -584,7 +592,7 @@
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(114, 16);
             this.label9.TabIndex = 14;
-            this.label9.Text = "申請欄位";
+            this.label9.Text = "申請欄位2";
             // 
             // label10
             // 
@@ -594,7 +602,7 @@
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(114, 16);
             this.label10.TabIndex = 15;
-            this.label10.Text = "申請欄位";
+            this.label10.Text = "申請欄位3";
             // 
             // label11
             // 
@@ -604,7 +612,7 @@
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(114, 16);
             this.label11.TabIndex = 16;
-            this.label11.Text = "申請欄位";
+            this.label11.Text = "申請欄位4";
             // 
             // label12
             // 
@@ -614,7 +622,7 @@
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(114, 16);
             this.label12.TabIndex = 17;
-            this.label12.Text = "申請欄位";
+            this.label12.Text = "申請欄位5";
             // 
             // label13
             // 
@@ -645,6 +653,40 @@
             this.textBox7.ReadOnly = true;
             this.textBox7.Size = new System.Drawing.Size(108, 27);
             this.textBox7.TabIndex = 20;
+            // 
+            // comboBox4
+            // 
+            this.comboBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Location = new System.Drawing.Point(363, 88);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(114, 24);
+            this.comboBox4.TabIndex = 21;
+            // 
+            // textBox8
+            // 
+            this.textBox8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox8.Location = new System.Drawing.Point(123, 126);
+            this.textBox8.Name = "textBox8";
+            this.textBox8.Size = new System.Drawing.Size(120, 27);
+            this.textBox8.TabIndex = 22;
+            // 
+            // comboBox5
+            // 
+            this.comboBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox5.FormattingEnabled = true;
+            this.comboBox5.Location = new System.Drawing.Point(249, 128);
+            this.comboBox5.Name = "comboBox5";
+            this.comboBox5.Size = new System.Drawing.Size(108, 24);
+            this.comboBox5.TabIndex = 23;
+            // 
+            // textBox9
+            // 
+            this.textBox9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox9.Location = new System.Drawing.Point(363, 126);
+            this.textBox9.Name = "textBox9";
+            this.textBox9.Size = new System.Drawing.Size(114, 27);
+            this.textBox9.TabIndex = 24;
             // 
             // FrmSETFORMFLOW
             // 
@@ -736,5 +778,9 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.ComboBox comboBox5;
+        private System.Windows.Forms.TextBox textBox9;
     }
 }

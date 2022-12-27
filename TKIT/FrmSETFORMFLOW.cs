@@ -55,12 +55,12 @@ namespace TKIT
 
             comboBox1load();
             textBox4.Text = "1";
-
             comboBox2load();
             textBox6.Text = "";
-
             comboBox3load();
             textBox7.Text = "1";
+            comboBox4load();
+            comboBox5load();
         }
 
 
@@ -155,6 +155,63 @@ namespace TKIT
 
         }
 
+        public void comboBox4load()
+        {
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@" SELECT [ID] ,[KIND],[PARAID],[PARANAME] FROM [TKIT].[dbo].[TBPARA] WHERE [KIND]='職級比較' ORDER BY [ID] ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("PARAID", typeof(string));
+            da.Fill(dt);
+            comboBox4.DataSource = dt.DefaultView;
+            comboBox4.ValueMember = "PARAID";
+            comboBox4.DisplayMember = "PARAID";
+            sqlConn.Close();
+
+
+        }
+
+        public void comboBox5load()
+        {
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@" SELECT [ID] ,[KIND],[PARAID],[PARANAME] FROM [TKIT].[dbo].[TBPARA] WHERE [KIND]='欄位比較' ORDER BY [ID] ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("PARAID", typeof(string));
+            da.Fill(dt);
+            comboBox5.DataSource = dt.DefaultView;
+            comboBox5.ValueMember = "PARAID";
+            comboBox5.DisplayMember = "PARAID";
+            sqlConn.Close();
+
+
+        }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(!string.IsNullOrEmpty(comboBox1.SelectedValue.ToString()))
@@ -378,9 +435,9 @@ namespace TKIT
                                      [UOF_FORM_NAME] AS '表單名稱'
                                     ,[APPLY_GROUP_ID] AS '限定申請部門代號'
                                     ,[APPLY_GROUP_NAME] AS '限定申請部門'
-                                    ,[APPLY_RANKS_OPERATOR] AS '限定職級比較'
                                     ,[APPLY_RANKS] AS '限定申請職級'
                                     ,[APPLY_TITLE_NAME] AS '限定申請職級'
+                                    ,[APPLY_RANKS_OPERATOR] AS '限定職級比較'
                                     ,[APPLY_FILEDS1] AS '限定申請欄位1'
                                     ,[APPLY_FILEDS_OPERATOR1] AS '限定申請欄位比較1'
                                     ,[APPLY_FILEDS_VALUES1] AS '限定申請欄位值1'
