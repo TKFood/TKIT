@@ -55,6 +55,12 @@ namespace TKIT
 
             comboBox1load();
             textBox4.Text = "1";
+
+            comboBox2load();
+            textBox6.Text = "";
+
+            comboBox3load();
+            textBox7.Text = "1";
         }
 
 
@@ -89,11 +95,87 @@ namespace TKIT
 
         }
 
+        public void comboBox2load()
+        {
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbUOF"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@" SELECT  [GROUP_ID],[GROUP_NAME],[PARENT_GROUP_ID],[GROUP_CODE],[ACTIVE] FROM [UOF].[dbo].[TB_EB_GROUP] WHERE ISNULL([GROUP_CODE],'')<>''AND [ACTIVE]=1 ORDER BY [GROUP_CODE] ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("GROUP_ID", typeof(string));
+            dt.Columns.Add("GROUP_NAME", typeof(string));
+            da.Fill(dt);
+            comboBox2.DataSource = dt.DefaultView;
+            comboBox2.ValueMember = "GROUP_ID";
+            comboBox2.DisplayMember = "GROUP_NAME";
+            sqlConn.Close();
+
+
+        }
+
+        public void comboBox3load()
+        {
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbUOF"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@" SELECT  [RANK] ,[TITLE_NAME] FROM [UOF].[dbo].[TB_EB_JOB_TITLE] ORDER BY [RANK] ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("RANK", typeof(string));
+            dt.Columns.Add("TITLE_NAME", typeof(string));
+            da.Fill(dt);
+            comboBox3.DataSource = dt.DefaultView;
+            comboBox3.ValueMember = "RANK";
+            comboBox3.DisplayMember = "TITLE_NAME";
+            sqlConn.Close();
+
+
+        }
+
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(!string.IsNullOrEmpty(comboBox1.SelectedValue.ToString()))
             {
                 textBox4.Text = comboBox1.SelectedValue.ToString();
+            }
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(comboBox2.SelectedValue.ToString()))
+            {
+                textBox6.Text = comboBox2.SelectedValue.ToString();
+            }
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(comboBox3.SelectedValue.ToString()))
+            {
+                textBox7.Text = comboBox3.SelectedValue.ToString();
             }
         }
 
@@ -530,8 +612,10 @@ namespace TKIT
         }
 
 
+
+
         #endregion
 
-       
+        
     }
 }
