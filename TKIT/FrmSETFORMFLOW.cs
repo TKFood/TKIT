@@ -253,33 +253,33 @@ namespace TKIT
 
                 sbSql.AppendFormat(@"  
                                    SELECT 
-                                     [ID]
-                                    ,[UOF_FORM_NAME]
-                                    ,[APPLY_GROUP_ID]
-                                    ,[APPLY_GROUP_NAME]
-                                    ,[APPLY_RANKS_OPERATOR]
-                                    ,[APPLY_RANKS]
-                                    ,[APPLY_TITLE_NAME]
-                                    ,[APPLY_FILEDS1]
-                                    ,[APPLY_FILEDS_OPERATOR1]
-                                    ,[APPLY_FILEDS_VALUES1]
-                                    ,[APPLY_FILEDS2]
-                                    ,[APPLY_FILEDS_OPERATOR2]
-                                    ,[APPLY_FILEDS_VALUES2]
-                                    ,[APPLY_FILEDS3]
-                                    ,[APPLY_FILEDS_OPERATOR3]
-                                    ,[APPLY_FILEDS_VALUES3]
-                                    ,[APPLY_FILEDS4]
-                                    ,[APPLY_FILEDS_OPERATOR4]
-                                    ,[APPLY_FILEDS_VALUES4]
-                                    ,[APPLY_FILEDS5]
-                                    ,[APPLY_FILEDS_OPERATOR5]
-                                    ,[APPLY_FILEDS_VALUES5]
-                                    ,[SET_FLOW_RANKS]
-                                    ,[SET_FLOW_TITLE_NAME]
-                                    ,[PRIORITYS]
-                                    ,[ISUSED]
-                                    ,[COMMENTS]
+                                     [UOF_FORM_NAME] AS '表單名稱'
+                                    ,[APPLY_GROUP_ID] AS '限定申請部門代號'
+                                    ,[APPLY_GROUP_NAME] AS '限定申請部門'
+                                    ,[APPLY_RANKS_OPERATOR] AS '限定職級比較'
+                                    ,[APPLY_RANKS] AS '限定申請職級'
+                                    ,[APPLY_TITLE_NAME] AS '限定申請職級'
+                                    ,[APPLY_FILEDS1] AS '限定申請欄位1'
+                                    ,[APPLY_FILEDS_OPERATOR1] AS '限定申請欄位比較1'
+                                    ,[APPLY_FILEDS_VALUES1] AS '限定申請欄位值1'
+                                    ,[APPLY_FILEDS2] AS '限定申請欄位2'
+                                    ,[APPLY_FILEDS_OPERATOR2] AS '限定申請欄位比較2'
+                                    ,[APPLY_FILEDS_VALUES2] AS '限定申請欄位值2'
+                                    ,[APPLY_FILEDS3] AS '限定申請欄位3'
+                                    ,[APPLY_FILEDS_OPERATOR3] AS '限定申請欄位比較3'
+                                    ,[APPLY_FILEDS_VALUES3] AS '限定申請欄位值3'
+                                    ,[APPLY_FILEDS4] AS '限定申請欄位4'
+                                    ,[APPLY_FILEDS_OPERATOR4] AS '限定申請欄位比較4'
+                                    ,[APPLY_FILEDS_VALUES4] AS '限定申請欄位值4'
+                                    ,[APPLY_FILEDS5] AS '限定申請欄位5'
+                                    ,[APPLY_FILEDS_OPERATOR5] AS '限定申請欄位比較5'
+                                    ,[APPLY_FILEDS_VALUES5] AS '限定申請欄位值5'
+                                    ,[SET_FLOW_RANKS] AS '表單簽核的職級代號'
+                                    ,[SET_FLOW_TITLE_NAME] AS '表單簽核的職'
+                                    ,[PRIORITYS] AS '條件優先權'
+                                    ,[ISUSED] AS '是否使用'
+                                    ,[COMMENTS] AS '備註'
+                                    ,[ID]
                                     FROM [UOF].[dbo].[Z_UOF_FROM_CONDITIONS]
                                     WHERE [UOF_FORM_NAME]='{0}'
                                     ORDER BY [PRIORITYS]
