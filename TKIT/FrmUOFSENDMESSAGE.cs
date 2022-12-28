@@ -51,9 +51,62 @@ namespace TKIT
         public FrmUOFSENDMESSAGE()
         {
             InitializeComponent();
+
+            SETTEXT();
         }
 
+        private void FrmUOFSENDMESSAGE_Load(object sender, EventArgs e)
+        {
+            dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;
+            dataGridView2.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;
+
+
+            //先建立個 CheckBox 欄
+            DataGridViewCheckBoxColumn cbCol = new DataGridViewCheckBoxColumn();
+            cbCol.Width = 20;   //設定寬度
+            cbCol.HeaderText = "　全選";
+            cbCol.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;   //置中
+            cbCol.TrueValue = true;
+            cbCol.FalseValue = false;
+            dataGridView2.Columns.Insert(0, cbCol);
+          
+
+            //建立个矩形，等下计算 CheckBox 嵌入 GridView 的位置
+            Rectangle rect = dataGridView2.GetCellDisplayRectangle(0, -1, true);
+            rect.X = rect.Location.X + rect.Width / 4 - 8;
+            rect.Y = rect.Location.Y + (rect.Height / 2 - 1);
+
+            CheckBox cbHeader = new CheckBox();
+            cbHeader.Name = "checkboxHeader";
+            cbHeader.Size = new Size(18, 18);
+            cbHeader.Location = rect.Location;
+
+            //全选要设定的事件
+            cbHeader.CheckedChanged += new EventHandler(cbHeader_CheckedChanged);
+
+            //将 CheckBox 加入到 dataGridView
+            dataGridView2.Controls.Add(cbHeader);
+
+        }
+
+
         #region FUNCTION
+        public void SETTEXT()
+        {
+            textBox2.Text = DateTime.Now.Month.ToString();
+        }
+        private void cbHeader_CheckedChanged(object sender, EventArgs e)
+        {
+            dataGridView2.EndEdit();
+
+            foreach (DataGridViewRow dr in dataGridView2.Rows)
+            {
+                dr.Cells[0].Value = ((CheckBox)dataGridView2.Controls.Find("checkboxHeader", true)[0]).Checked;
+
+            }
+
+        }
+
         public void SETPIC()
         {
             //Image O_Image = Image.FromStream(WebRequest.Create("https://eip.tkfood.com.tw/UOF/Common/FileCenter/V3/Handler/FileControlHandler.ashx?id=0f7e7008-971e-49dd-a83b-987300f69baf").GetResponse().GetResponseStream());
@@ -183,6 +236,79 @@ namespace TKIT
             
         }
 
+        public void SEARCHUSER(string MONTHS)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbUOF"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@"  
+                                    
+                                    SELECT TB_EB_USER.ACCOUNT AS '工號',TB_EB_USER.NAME AS '姓名',TB_EB_EMPL.BIRTHDAY AS '生日',TB_EB_USER.USER_GUID,MONTH(TB_EB_EMPL.BIRTHDAY) AS BIRTHMONTHS
+                                    FROM [UOF].[dbo].TB_EB_USER,[UOF].[dbo].TB_EB_EMPL
+                                    WHERE 1=1
+                                    AND TB_EB_USER.USER_GUID=TB_EB_EMPL.USER_GUID
+                                    AND TB_EB_USER.IS_SUSPENDED<>'1'
+                                    AND ISNULL(TB_EB_EMPL.BIRTHDAY,'')<>''
+                                    AND MONTH(TB_EB_EMPL.BIRTHDAY)={0}
+                                    ORDER BY NAME
+
+                                    ", MONTHS);
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count == 0)
+                {
+                    dataGridView2.DataSource = null;
+                }
+                else if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                {
+                    dataGridView2.DataSource = ds1.Tables["TEMPds1"];
+
+                    dataGridView2.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9);
+                    dataGridView2.DefaultCellStyle.Font = new Font("Tahoma", 10);
+                    dataGridView2.Columns["工號"].Width = 100;
+                    dataGridView2.Columns["姓名"].Width = 100;
+                    dataGridView2.Columns["生日"].Width = 100;
+
+                }
+
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -192,8 +318,18 @@ namespace TKIT
 
             SEARCH(textBox1.Text);
         }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            SEARCHUSER(textBox2.Text);
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
         #endregion
 
-    
+
     }
 }
