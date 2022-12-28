@@ -96,6 +96,12 @@
     <Compile Include="FrmSETFORMFLOW.Designer.cs">
       <DependentUpon>FrmSETFORMFLOW.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmUOFSENDMESSAGE.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmUOFSENDMESSAGE.Designer.cs">
+      <DependentUpon>FrmUOFSENDMESSAGE.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FrmCODE.resx">
@@ -109,6 +115,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmSETFORMFLOW.resx">
       <DependentUpon>FrmSETFORMFLOW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmUOFSENDMESSAGE.resx">
+      <DependentUpon>FrmUOFSENDMESSAGE.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
