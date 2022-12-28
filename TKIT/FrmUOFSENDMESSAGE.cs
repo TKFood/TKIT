@@ -148,6 +148,41 @@ namespace TKIT
             }
         }
 
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+
+            try
+            {
+                if (dataGridView1.CurrentRow != null)
+                {
+                    int rowindex = dataGridView1.CurrentRow.Index;
+
+                    if (rowindex >= 0)
+                    {
+                        DataGridViewRow row = dataGridView1.Rows[rowindex];
+
+                        string RESIZE_FILE_ID = row.Cells["RESIZE_FILE_ID"].Value.ToString();
+
+                        Image O_Image = Image.FromStream(WebRequest.Create("https://eip.tkfood.com.tw/UOF/Common/FileCenter/V3/Handler/FileControlHandler.ashx?id="+RESIZE_FILE_ID+"").GetResponse().GetResponseStream());
+                        //将获取的图片赋给图片框
+                        pictureBox1.Image = O_Image;
+                        pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+
+                    }
+                    else
+                    {
+
+
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+            
+        }
+
         #endregion
 
         #region BUTTON
@@ -158,5 +193,7 @@ namespace TKIT
             SEARCH(textBox1.Text);
         }
         #endregion
+
+    
     }
 }
