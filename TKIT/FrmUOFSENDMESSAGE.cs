@@ -309,6 +309,129 @@ namespace TKIT
 
             }
         }
+
+        public void ADD_UOF_TB_EIP_PRIV_MESS(
+            string MESSAGE_GUID
+            , string TOPIC
+            , string MESSAGE_CONTENT
+            , string MESSAGE_TO
+            , string MESSAGE_FROM
+            , string REPLY_MESSAGE_GUID
+            , string CREATE_TIME
+            , string READED_TIME
+            , string REPLY_TIME
+            , string FROM_DELETED
+            , string TO_DELETED
+            , string FILE_GROUP_ID
+            , string MASTER_GUID
+            , string EVENT_ID
+
+            )
+        {
+            try
+            {
+                // 20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbUOF"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                using (SqlConnection conn = sqlConn)
+                {
+                    if (!string.IsNullOrEmpty(MESSAGE_TO))
+                    {
+                        StringBuilder SBSQL = new StringBuilder();
+                        SBSQL.AppendFormat(@"   
+                                            
+                                           
+                                            
+INSERT INTO [UOF].[dbo].[TB_EIP_PRIV_MESS]
+(
+[MESSAGE_GUID]
+,[TOPIC]
+,[MESSAGE_CONTENT]
+,[MESSAGE_TO]
+,[MESSAGE_FROM]
+,[REPLY_MESSAGE_GUID]
+,[CREATE_TIME]
+,[READED_TIME]
+,[REPLY_TIME]
+,[FROM_DELETED]
+,[TO_DELETED]
+,[FILE_GROUP_ID]
+,[MASTER_GUID]
+,[EVENT_ID]
+)
+VALUES
+(
+NEWID()
+,@TOPIC
+,'
+<p>HR TEST</p>
+<p>&nbsp;</p>
+<p>[img alt="""" src=""/common/filecenter/v3/handler/downloadhandler.ashx?id=150fff01-47d5-4b97-a6a2-76c7207fa395&path=ALBUM%5C2022%5C11&contentType=image%2Fjpeg&name=40100331068090.jpg&e=HU1s3YUxz%2f%2f%2f59HuM52yYHkLtMC3WfMTCVazCg9KbOfjc2pxNV2dVM1j%2btqCuPZK&l=Nxv%2b0JZKKdGc8%2fv6xuCvtDw0QbJcGvHE9nd1Vbm8zaQ%3d&enc=0&uid=b6f50a95-17ec-47f2-b842-4ad12512b431"" class=""UOF"" style=""width: 331px; "" /]</p>
+HI~
+ ' 
+, @MESSAGE_TO
+, @MESSAGE_FROM
+, ''
+, @CREATE_TIME
+, NULL
+, NULL
+, '0'
+, '0'
+, ''
+, NEWID()
+, ''
+)
+
+
+
+
+                                            ");
+
+                        string sql = SBSQL.ToString();
+
+                        using (SqlCommand cmd = new SqlCommand(sql, conn))
+                        {
+
+                            cmd.Parameters.AddWithValue("@MESSAGE_GUID", MESSAGE_GUID);
+                            cmd.Parameters.AddWithValue("@TOPIC", TOPIC);
+                            cmd.Parameters.AddWithValue("@MESSAGE_CONTENT", MESSAGE_CONTENT);
+                            cmd.Parameters.AddWithValue("@MESSAGE_TO", MESSAGE_TO);
+                            cmd.Parameters.AddWithValue("@MESSAGE_FROM", MESSAGE_FROM);
+                            cmd.Parameters.AddWithValue("@REPLY_MESSAGE_GUID", REPLY_MESSAGE_GUID);
+                            cmd.Parameters.AddWithValue("@CREATE_TIME", CREATE_TIME);
+                            cmd.Parameters.AddWithValue("@READED_TIME", READED_TIME);
+                            cmd.Parameters.AddWithValue("@REPLY_TIME", REPLY_TIME);
+                            cmd.Parameters.AddWithValue("@FROM_DELETED", FROM_DELETED);
+                            cmd.Parameters.AddWithValue("@TO_DELETED", TO_DELETED);
+                            cmd.Parameters.AddWithValue("@FILE_GROUP_ID", FILE_GROUP_ID);
+                            cmd.Parameters.AddWithValue("@MASTER_GUID", MASTER_GUID);
+                        
+
+
+
+                            conn.Open();
+                            cmd.ExecuteNonQuery();
+                            conn.Close();
+                        }
+                    }
+
+                }
+            }
+            catch
+            {
+                MessageBox.Show("失敗");
+            }
+        }
+
+
+
         #endregion
 
         #region BUTTON
@@ -324,7 +447,31 @@ namespace TKIT
         }
         private void button3_Click(object sender, EventArgs e)
         {
+            StringBuilder MESSAGE_CONTENT = new StringBuilder();
+            MESSAGE_CONTENT.AppendFormat(@"
+                                        <p>HR TEST</p>
+                                        <p>&nbsp;</p>
+                                        <p>[img alt="" src="" / common / filecenter / v3 / handler / downloadhandler.ashx ? id = 150fff01 - 47d5 - 4b97 - a6a2 - 76c7207fa395 & path = ALBUM % 5C2022 % 5C11 & contentType = image % 2Fjpeg & name = 40100331068090.jpg & e = HU1s3YUxz % 2f % 2f % 2f59HuM52yYHkLtMC3WfMTCVazCg9KbOfjc2pxNV2dVM1j % 2btqCuPZK & l = Nxv % 2b0JZKKdGc8 % 2fv6xuCvtDw0QbJcGvHE9nd1Vbm8zaQ % 3d & enc = 0 & uid = b6f50a95 - 17ec - 47f2 - b842 - 4ad12512b431"" class=""UOF"" style=""width: 331px; "" /]</p>
+                                        HI~
+                                        ");
 
+
+            ADD_UOF_TB_EIP_PRIV_MESS(
+            Guid.NewGuid().ToString("")
+            , "test"
+            , MESSAGE_CONTENT.ToString()
+            , "b6f50a95-17ec-47f2-b842-4ad12512b431"
+            , "b6f50a95-17ec-47f2-b842-4ad12512b431"
+            , ""
+            , DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fffffffK")
+            , ""
+            , ""
+            , "0"
+            , "0"
+            , ""
+            , Guid.NewGuid().ToString("")
+            , ""
+            );
         }
 
 
