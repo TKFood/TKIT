@@ -48,6 +48,10 @@ namespace TKIT
         string[] tempFile;
         string tFileName = "";
 
+        string PHOTO_TOPIC = "";
+        string PHOTO_DESC = "";
+        string RESIZE_FILE_ID = "";
+
         public FrmUOFSENDMESSAGE()
         {
             InitializeComponent();
@@ -214,7 +218,9 @@ namespace TKIT
                     {
                         DataGridViewRow row = dataGridView1.Rows[rowindex];
 
-                        string RESIZE_FILE_ID = row.Cells["RESIZE_FILE_ID"].Value.ToString();
+                        PHOTO_TOPIC = row.Cells["照片名稱"].Value.ToString();
+                        PHOTO_DESC = row.Cells["PHOTO_DESC"].Value.ToString();
+                        RESIZE_FILE_ID = row.Cells["RESIZE_FILE_ID"].Value.ToString();
 
                         Image O_Image = Image.FromStream(WebRequest.Create("https://eip.tkfood.com.tw/UOF/Common/FileCenter/V3/Handler/FileControlHandler.ashx?id="+RESIZE_FILE_ID+"").GetResponse().GetResponseStream());
                         //将获取的图片赋给图片框
@@ -312,25 +318,29 @@ namespace TKIT
 
         public void NEW_MESSAGE()
         {
-            foreach (DataGridViewRow row in dataGridView2.Rows)
+            string MESSAGE_TO = "";
+            string MESSAGE_FROM = "916e213c-7b2e-46e3-8821-b7066378042b";
+            foreach (DataGridViewRow DR in dataGridView2.Rows)
             {
-                if (Convert.ToBoolean(row.Cells[0].Value)==true)
+                if (Convert.ToBoolean(DR.Cells[0].Value)==true)
                 {
+                    MESSAGE_TO = DR.Cells["USER_GUID"].Value.ToString();
+
                     StringBuilder MESSAGE_CONTENT = new StringBuilder();
                     MESSAGE_CONTENT.AppendFormat(@"
                                                 <p>HR TEST</p>
                                                 <p>&nbsp;</p>
-                                                <p>[img alt="""" src=""/common/filecenter/v3/handler/downloadhandler.ashx?id=150fff01-47d5-4b97-a6a2-76c7207fa395&path=ALBUM%5C2022%5C11&contentType=image%2Fjpeg&name=40100331068090.jpg&e=HU1s3YUxz%2f%2f%2f59HuM52yYHkLtMC3WfMTCVazCg9KbOfjc2pxNV2dVM1j%2btqCuPZK&l=Nxv%2b0JZKKdGc8%2fv6xuCvtDw0QbJcGvHE9nd1Vbm8zaQ%3d&enc=0&uid=b6f50a95-17ec-47f2-b842-4ad12512b431"" class=""UOF"" style=""width: 331px; "" /]</p>
+                                                <p>[img alt="""" src=""/common/FileCenter/V3/Handler/FileControlHandler.ashx?id={0}""class=""UOF"" style=""width: 331px; "" /]</p>
                                                 HI~
-                                                ");
+                                                ",RESIZE_FILE_ID);
 
 
                     ADD_UOF_TB_EIP_PRIV_MESS(
                     Guid.NewGuid().ToString("")
-                    , "test"
+                    , "HR TEST"
                     , MESSAGE_CONTENT.ToString()
-                    , "b6f50a95-17ec-47f2-b842-4ad12512b431"
-                    , "b6f50a95-17ec-47f2-b842-4ad12512b431"
+                    , MESSAGE_TO
+                    , MESSAGE_FROM
                     , ""
                     , DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fffffffK")
                     , ""
