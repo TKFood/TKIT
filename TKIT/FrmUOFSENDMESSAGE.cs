@@ -370,23 +370,18 @@ VALUES
 (
 NEWID()
 ,@TOPIC
-,'
-<p>HR TEST</p>
-<p>&nbsp;</p>
-<p>[img alt="""" src=""/common/filecenter/v3/handler/downloadhandler.ashx?id=150fff01-47d5-4b97-a6a2-76c7207fa395&path=ALBUM%5C2022%5C11&contentType=image%2Fjpeg&name=40100331068090.jpg&e=HU1s3YUxz%2f%2f%2f59HuM52yYHkLtMC3WfMTCVazCg9KbOfjc2pxNV2dVM1j%2btqCuPZK&l=Nxv%2b0JZKKdGc8%2fv6xuCvtDw0QbJcGvHE9nd1Vbm8zaQ%3d&enc=0&uid=b6f50a95-17ec-47f2-b842-4ad12512b431"" class=""UOF"" style=""width: 331px; "" /]</p>
-HI~
- ' 
-, @MESSAGE_TO
-, @MESSAGE_FROM
-, ''
-, @CREATE_TIME
-, NULL
-, NULL
-, '0'
-, '0'
-, ''
-, NEWID()
-, ''
+,@MESSAGE_CONTENT
+,@MESSAGE_TO
+,@MESSAGE_FROM
+,''
+,@CREATE_TIME
+,NULL
+,NULL
+,'0'
+,'0'
+,''
+,NEWID()
+,''
 )
 
 
@@ -451,7 +446,7 @@ HI~
             MESSAGE_CONTENT.AppendFormat(@"
                                         <p>HR TEST</p>
                                         <p>&nbsp;</p>
-                                        <p>[img alt="" src="" / common / filecenter / v3 / handler / downloadhandler.ashx ? id = 150fff01 - 47d5 - 4b97 - a6a2 - 76c7207fa395 & path = ALBUM % 5C2022 % 5C11 & contentType = image % 2Fjpeg & name = 40100331068090.jpg & e = HU1s3YUxz % 2f % 2f % 2f59HuM52yYHkLtMC3WfMTCVazCg9KbOfjc2pxNV2dVM1j % 2btqCuPZK & l = Nxv % 2b0JZKKdGc8 % 2fv6xuCvtDw0QbJcGvHE9nd1Vbm8zaQ % 3d & enc = 0 & uid = b6f50a95 - 17ec - 47f2 - b842 - 4ad12512b431"" class=""UOF"" style=""width: 331px; "" /]</p>
+                                        <p>[img alt="""" src=""/common/filecenter/v3/handler/downloadhandler.ashx?id=150fff01-47d5-4b97-a6a2-76c7207fa395&path=ALBUM%5C2022%5C11&contentType=image%2Fjpeg&name=40100331068090.jpg&e=HU1s3YUxz%2f%2f%2f59HuM52yYHkLtMC3WfMTCVazCg9KbOfjc2pxNV2dVM1j%2btqCuPZK&l=Nxv%2b0JZKKdGc8%2fv6xuCvtDw0QbJcGvHE9nd1Vbm8zaQ%3d&enc=0&uid=b6f50a95-17ec-47f2-b842-4ad12512b431"" class=""UOF"" style=""width: 331px; "" /]</p>
                                         HI~
                                         ");
 
