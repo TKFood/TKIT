@@ -310,6 +310,66 @@ namespace TKIT
             }
         }
 
+        public void NEW_MESSAGE()
+        {
+            foreach (DataGridViewRow row in dataGridView2.Rows)
+            {
+                if (Convert.ToBoolean(row.Cells[0].Value)==true)
+                {
+                    StringBuilder MESSAGE_CONTENT = new StringBuilder();
+                    MESSAGE_CONTENT.AppendFormat(@"
+                                                <p>HR TEST</p>
+                                                <p>&nbsp;</p>
+                                                <p>[img alt="""" src=""/common/filecenter/v3/handler/downloadhandler.ashx?id=150fff01-47d5-4b97-a6a2-76c7207fa395&path=ALBUM%5C2022%5C11&contentType=image%2Fjpeg&name=40100331068090.jpg&e=HU1s3YUxz%2f%2f%2f59HuM52yYHkLtMC3WfMTCVazCg9KbOfjc2pxNV2dVM1j%2btqCuPZK&l=Nxv%2b0JZKKdGc8%2fv6xuCvtDw0QbJcGvHE9nd1Vbm8zaQ%3d&enc=0&uid=b6f50a95-17ec-47f2-b842-4ad12512b431"" class=""UOF"" style=""width: 331px; "" /]</p>
+                                                HI~
+                                                ");
+
+
+                    ADD_UOF_TB_EIP_PRIV_MESS(
+                    Guid.NewGuid().ToString("")
+                    , "test"
+                    , MESSAGE_CONTENT.ToString()
+                    , "b6f50a95-17ec-47f2-b842-4ad12512b431"
+                    , "b6f50a95-17ec-47f2-b842-4ad12512b431"
+                    , ""
+                    , DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fffffffK")
+                    , ""
+                    , ""
+                    , "0"
+                    , "0"
+                    , ""
+                    , Guid.NewGuid().ToString("")
+                    , ""
+                    );
+                }
+            }
+            //StringBuilder MESSAGE_CONTENT = new StringBuilder();
+            //MESSAGE_CONTENT.AppendFormat(@"
+            //                            <p>HR TEST</p>
+            //                            <p>&nbsp;</p>
+            //                            <p>[img alt="""" src=""/common/filecenter/v3/handler/downloadhandler.ashx?id=150fff01-47d5-4b97-a6a2-76c7207fa395&path=ALBUM%5C2022%5C11&contentType=image%2Fjpeg&name=40100331068090.jpg&e=HU1s3YUxz%2f%2f%2f59HuM52yYHkLtMC3WfMTCVazCg9KbOfjc2pxNV2dVM1j%2btqCuPZK&l=Nxv%2b0JZKKdGc8%2fv6xuCvtDw0QbJcGvHE9nd1Vbm8zaQ%3d&enc=0&uid=b6f50a95-17ec-47f2-b842-4ad12512b431"" class=""UOF"" style=""width: 331px; "" /]</p>
+            //                            HI~
+            //                            ");
+
+
+            //ADD_UOF_TB_EIP_PRIV_MESS(
+            //Guid.NewGuid().ToString("")
+            //, "test"
+            //, MESSAGE_CONTENT.ToString()
+            //, "b6f50a95-17ec-47f2-b842-4ad12512b431"
+            //, "b6f50a95-17ec-47f2-b842-4ad12512b431"
+            //, ""
+            //, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fffffffK")
+            //, ""
+            //, ""
+            //, "0"
+            //, "0"
+            //, ""
+            //, Guid.NewGuid().ToString("")
+            //, ""
+            //);
+        }
+
         public void ADD_UOF_TB_EIP_PRIV_MESS(
             string MESSAGE_GUID
             , string TOPIC
@@ -345,47 +405,41 @@ namespace TKIT
                     if (!string.IsNullOrEmpty(MESSAGE_TO))
                     {
                         StringBuilder SBSQL = new StringBuilder();
-                        SBSQL.AppendFormat(@"   
-                                            
-                                           
-                                            
-INSERT INTO [UOF].[dbo].[TB_EIP_PRIV_MESS]
-(
-[MESSAGE_GUID]
-,[TOPIC]
-,[MESSAGE_CONTENT]
-,[MESSAGE_TO]
-,[MESSAGE_FROM]
-,[REPLY_MESSAGE_GUID]
-,[CREATE_TIME]
-,[READED_TIME]
-,[REPLY_TIME]
-,[FROM_DELETED]
-,[TO_DELETED]
-,[FILE_GROUP_ID]
-,[MASTER_GUID]
-,[EVENT_ID]
-)
-VALUES
-(
-NEWID()
-,@TOPIC
-,@MESSAGE_CONTENT
-,@MESSAGE_TO
-,@MESSAGE_FROM
-,''
-,@CREATE_TIME
-,NULL
-,NULL
-,'0'
-,'0'
-,''
-,NEWID()
-,''
-)
-
-
-
+                        SBSQL.AppendFormat(@" 
+                                            INSERT INTO [UOF].[dbo].[TB_EIP_PRIV_MESS]
+                                            (
+                                            [MESSAGE_GUID]
+                                            ,[TOPIC]
+                                            ,[MESSAGE_CONTENT]
+                                            ,[MESSAGE_TO]
+                                            ,[MESSAGE_FROM]
+                                            ,[REPLY_MESSAGE_GUID]
+                                            ,[CREATE_TIME]
+                                            ,[READED_TIME]
+                                            ,[REPLY_TIME]
+                                            ,[FROM_DELETED]
+                                            ,[TO_DELETED]
+                                            ,[FILE_GROUP_ID]
+                                            ,[MASTER_GUID]
+                                            ,[EVENT_ID]
+                                            )
+                                            VALUES
+                                            (
+                                            NEWID()
+                                            ,@TOPIC
+                                            ,@MESSAGE_CONTENT
+                                            ,@MESSAGE_TO
+                                            ,@MESSAGE_FROM
+                                            ,''
+                                            ,@CREATE_TIME
+                                            ,NULL
+                                            ,NULL
+                                            ,'0'
+                                            ,'0'
+                                            ,''
+                                            ,NEWID()
+                                            ,''
+                                            )
 
                                             ");
 
@@ -442,31 +496,33 @@ NEWID()
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            StringBuilder MESSAGE_CONTENT = new StringBuilder();
-            MESSAGE_CONTENT.AppendFormat(@"
-                                        <p>HR TEST</p>
-                                        <p>&nbsp;</p>
-                                        <p>[img alt="""" src=""/common/filecenter/v3/handler/downloadhandler.ashx?id=150fff01-47d5-4b97-a6a2-76c7207fa395&path=ALBUM%5C2022%5C11&contentType=image%2Fjpeg&name=40100331068090.jpg&e=HU1s3YUxz%2f%2f%2f59HuM52yYHkLtMC3WfMTCVazCg9KbOfjc2pxNV2dVM1j%2btqCuPZK&l=Nxv%2b0JZKKdGc8%2fv6xuCvtDw0QbJcGvHE9nd1Vbm8zaQ%3d&enc=0&uid=b6f50a95-17ec-47f2-b842-4ad12512b431"" class=""UOF"" style=""width: 331px; "" /]</p>
-                                        HI~
-                                        ");
+            NEW_MESSAGE();
+
+            //StringBuilder MESSAGE_CONTENT = new StringBuilder();
+            //MESSAGE_CONTENT.AppendFormat(@"
+            //                            <p>HR TEST</p>
+            //                            <p>&nbsp;</p>
+            //                            <p>[img alt="""" src=""/common/filecenter/v3/handler/downloadhandler.ashx?id=150fff01-47d5-4b97-a6a2-76c7207fa395&path=ALBUM%5C2022%5C11&contentType=image%2Fjpeg&name=40100331068090.jpg&e=HU1s3YUxz%2f%2f%2f59HuM52yYHkLtMC3WfMTCVazCg9KbOfjc2pxNV2dVM1j%2btqCuPZK&l=Nxv%2b0JZKKdGc8%2fv6xuCvtDw0QbJcGvHE9nd1Vbm8zaQ%3d&enc=0&uid=b6f50a95-17ec-47f2-b842-4ad12512b431"" class=""UOF"" style=""width: 331px; "" /]</p>
+            //                            HI~
+            //                            ");
 
 
-            ADD_UOF_TB_EIP_PRIV_MESS(
-            Guid.NewGuid().ToString("")
-            , "test"
-            , MESSAGE_CONTENT.ToString()
-            , "b6f50a95-17ec-47f2-b842-4ad12512b431"
-            , "b6f50a95-17ec-47f2-b842-4ad12512b431"
-            , ""
-            , DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fffffffK")
-            , ""
-            , ""
-            , "0"
-            , "0"
-            , ""
-            , Guid.NewGuid().ToString("")
-            , ""
-            );
+            //ADD_UOF_TB_EIP_PRIV_MESS(
+            //Guid.NewGuid().ToString("")
+            //, "test"
+            //, MESSAGE_CONTENT.ToString()
+            //, "b6f50a95-17ec-47f2-b842-4ad12512b431"
+            //, "b6f50a95-17ec-47f2-b842-4ad12512b431"
+            //, ""
+            //, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fffffffK")
+            //, ""
+            //, ""
+            //, "0"
+            //, "0"
+            //, ""
+            //, Guid.NewGuid().ToString("")
+            //, ""
+            //);
         }
 
 
