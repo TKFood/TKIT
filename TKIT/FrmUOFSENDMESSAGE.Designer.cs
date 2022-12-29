@@ -401,6 +401,7 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(303, 474);
             this.textBox3.TabIndex = 0;
+            this.textBox3.Text = "敬賀生日快樂\r\n\r\n老楊食品";
             // 
             // tabPage2
             // 

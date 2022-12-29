@@ -320,6 +320,13 @@ namespace TKIT
         {
             string MESSAGE_TO = "";
             string MESSAGE_FROM = "916e213c-7b2e-46e3-8821-b7066378042b";
+
+            StringBuilder TEXTBOX = new StringBuilder();
+            for (int i = 0; i < textBox3.Lines.Length; i++)
+            {
+                TEXTBOX.AppendFormat("<p>" + textBox3.Lines[i] + "</p>" );
+            }
+
             foreach (DataGridViewRow DR in dataGridView2.Rows)
             {
                 if (Convert.ToBoolean(DR.Cells[0].Value)==true)
@@ -327,11 +334,11 @@ namespace TKIT
                     MESSAGE_TO = DR.Cells["USER_GUID"].Value.ToString();
 
                     StringBuilder MESSAGE_CONTENT = new StringBuilder();
-                    MESSAGE_CONTENT.AppendFormat(@"
-                                                <p>HR TEST</p>
-                                                <p>&nbsp;</p>
+
+                    MESSAGE_CONTENT.AppendFormat(TEXTBOX.ToString());
+                    MESSAGE_CONTENT.AppendFormat(@"                                               
                                                 <p>[img alt="""" src=""/common/FileCenter/V3/Handler/FileControlHandler.ashx?id={0}""class=""UOF"" style=""width: 331px; "" /]</p>
-                                                HI~
+                                              
                                                 ",RESIZE_FILE_ID);
 
 
