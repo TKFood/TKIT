@@ -1,19 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TKITDLL;
 using AForge.Video;
 using AForge.Video.DirectShow;
+using System.IO;
+
+
 
 namespace TKIT
 {
     public partial class frmPHOTO : Form
     {
+        StringBuilder sbSql = new StringBuilder();
+        SqlConnection sqlConn = new SqlConnection();
+        SqlDataAdapter adapter = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
+        SqlTransaction tran;
+        SqlCommand cmd = new SqlCommand();
+        int result;
+
         public FilterInfoCollection USB_Webcams = null;//FilterInfoCollection類別實體化
         public VideoCaptureDevice Cam;//攝像頭的初始化
 
@@ -56,6 +71,116 @@ namespace TKIT
             pictureBox1.Image = (Bitmap)eventArgs.Frame.Clone();
         }
 
+        //保存图片
+        private delegate void SaveImage();
+        private void SaveImageHH(string ImagePath)
+        {
+            if (this.pictureBox1.InvokeRequired)
+            {
+                SaveImage saveimage = delegate { this.pictureBox1.Image.Save(ImagePath); };
+                this.pictureBox1.Invoke(saveimage);
+            }
+            else
+            {
+                this.pictureBox1.Image.Save(ImagePath);
+            }
+
+        }
+
+        // 將 PictureBox 中的圖片轉換為位元組數組
+        private byte[] ImageToByteArray(Image image)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg); // 或者使用其他圖像格式
+                return ms.ToArray();
+            }
+        }
+
+        // 將位元組數組插入到資料庫的 BLOB 欄位中
+        private void InsertImageIntoDatabase(string NO,string CTIMES, byte[] imageBytes)
+        {
+            SqlConnection sqlConn = new SqlConnection();
+            SqlCommand sqlComm = new SqlCommand();
+
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(@"
+                                    INSERT INTO [TKWAREHOUSE].[dbo].[PACKAGEBOXSPHOTO]
+                                    ([NO],[CTIMES],[PHOTOS])
+                                    VALUES
+                                    ('{0}','{1}',{2})
+                                        ", NO, CTIMES, imageBytes
+                                        );
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+                    MessageBox.Show("完成");
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        // 將 PictureBox 中的圖片存儲到資料庫
+        private void SaveImageToDatabase()
+        {
+            // 替換為您的 PictureBox 控制項名稱
+            Image image = pictureBox1.Image;
+
+            if (image != null)
+            {
+                byte[] imageBytes = ImageToByteArray(image);
+                InsertImageIntoDatabase(DateTime.Now.ToString("yyyyMMDdd"), DateTime.Now.ToString("yyyyMMDdd HH:MM:ss"), imageBytes);
+                MessageBox.Show("圖片已成功存儲到資料庫。");
+            }
+            else
+            {
+                MessageBox.Show("請先選擇要存儲的圖片。");
+            }
+        }
+        //
+
         private void button1_Click(object sender, EventArgs e)
         {
             TAKE_OPEN();
@@ -75,6 +200,20 @@ namespace TKIT
                 Cam.Stop();  // WebCam stops capturing images.
             }
             catch { }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            //string imagePath = System.Environment.CurrentDirectory;
+            string imagePath = Path.Combine(Environment.CurrentDirectory, "Images",DateTime.Now.ToString("yyyy"));
+            if (!Directory.Exists(imagePath))
+            {
+                Directory.CreateDirectory(imagePath);
+            }
+            SaveImageHH(imagePath+"\\"+ DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpg");
+            SaveImageToDatabase();
+
+            MessageBox.Show("OK");
         }
     }
 }
