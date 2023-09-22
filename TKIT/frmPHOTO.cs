@@ -124,13 +124,16 @@ namespace TKIT
                 sbSql.Clear();
 
                 sbSql.AppendFormat(@"
-                                    INSERT INTO [TKWAREHOUSE].[dbo].[PACKAGEBOXSPHOTO]
-                                    ([NO],[CTIMES],[PHOTOS])
+                                     INSERT INTO [TKWAREHOUSE].[dbo].[PACKAGEBOXSPHOTO]
+                                    ([NO], [CTIMES], [PHOTOS])
                                     VALUES
-                                    ('{0}','{1}',{2})
-                                        ", NO, CTIMES, imageBytes
-                                        );
+                                    (@NO, @CTIMES, @PHOTOS)
+                                    "
+                                    );
 
+                cmd.Parameters.AddWithValue("@NO", NO);
+                cmd.Parameters.AddWithValue("@CTIMES", CTIMES);
+                cmd.Parameters.AddWithValue("@PHOTOS", imageBytes);
 
                 cmd.Connection = sqlConn;
                 cmd.CommandTimeout = 60;
@@ -146,7 +149,7 @@ namespace TKIT
                 {
                     tran.Commit();      //執行交易  
 
-                    MessageBox.Show("完成");
+                    //MessageBox.Show("圖片已成功存儲到資料庫。");
 
                 }
 
@@ -171,14 +174,44 @@ namespace TKIT
             if (image != null)
             {
                 byte[] imageBytes = ImageToByteArray(image);
-                InsertImageIntoDatabase(DateTime.Now.ToString("yyyyMMDdd"), DateTime.Now.ToString("yyyyMMDdd HH:MM:ss"), imageBytes);
-                MessageBox.Show("圖片已成功存儲到資料庫。");
+                InsertImageIntoDatabase(DateTime.Now.ToString("yyyyMMdd"), DateTime.Now.ToString("yyyyMMdd HH:MM:ss"), imageBytes);
+              
             }
             else
             {
-                MessageBox.Show("請先選擇要存儲的圖片。");
+              
             }
         }
+
+        private void DisplayImageFromFolder(string folderPath)
+        {
+            // 檢查資料夾是否存在
+            if (!Directory.Exists(folderPath))
+            {
+                MessageBox.Show("資料夾不存在。");
+                return;
+            }
+
+            // 獲取資料夾中的所有圖片檔案
+            string[] imageFiles = Directory.GetFiles(folderPath, "*.jpg"); // 只顯示 .jpg 檔案，您可以根據需要更改擴展名
+
+            if (imageFiles.Length > 0)
+            {
+                // 選擇第一張圖片顯示
+                string imagePath = imageFiles[0];
+
+                // 顯示圖片在 PictureBox 控制項上
+                pictureBox1.Image = Image.FromFile(imagePath);
+            }
+            else
+            {
+                // 如果沒有圖片，清除 PictureBox
+                pictureBox1.Image = null;
+                MessageBox.Show("沒有找到圖片。");
+            }
+        }
+
+
         //
 
         private void button1_Click(object sender, EventArgs e)
@@ -215,5 +248,13 @@ namespace TKIT
 
             MessageBox.Show("OK");
         }
-    }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string imagePath = Path.Combine(Environment.CurrentDirectory, "Images", DateTime.Now.ToString("yyyy"));
+            DisplayImageFromFolder(imagePath);
+        }
+
+        
+}
 }
